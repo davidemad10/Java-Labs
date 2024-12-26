@@ -2,13 +2,11 @@ public class Complex<T extends Number> {
     private T real;
     private T imaginary;
 
-    // Constructor to initialize complex number
     public Complex(T real, T imaginary) {
         this.real = real;
         this.imaginary = imaginary;
     }
 
-    // Getters
     public T getReal() {
         return real;
     }
@@ -17,7 +15,6 @@ public class Complex<T extends Number> {
         return imaginary;
     }
 
-    // Method to display complex number
     public String display() {
         return real + " + " + imaginary + "i";
     }
