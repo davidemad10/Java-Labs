@@ -105,7 +105,16 @@ public class LibraryManagementSystem {
             switch (choice) {
                 case 1:
                     System.out.print("Enter Book ID: ");
-                    int bookId = scanner.nextInt();
+                    int bookId=0;
+                    while (true) {
+                        try {
+                            bookId = scanner.nextInt();
+                            break; 
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. ID Must be Integer Number only.");
+                            scanner.nextLine();
+                        }
+                    } 
                     while (true) {
                         try {
                             if (library.getItemById(bookId) != null) {
@@ -125,20 +134,71 @@ public class LibraryManagementSystem {
                     System.out.print("Enter Book Author: ");
                     String bookAuthor = scanner.nextLine();
                     System.out.print("Enter Book Stock: ");
-                    int bookStock = scanner.nextInt();
+                    int bookStock=0;
+                    while (true) {
+                        try {
+                            bookStock = scanner.nextInt();
+                            break; 
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. Stock Must be Integer Number only.");
+                            scanner.nextLine();
+                        }
+                    } 
                     Book newBook = new Book(bookId, bookTitle, bookAuthor, bookStock);
                     library.addItem(newBook);
                     System.out.println("Book added successfully.");
                     break;
                 case 2:
                     System.out.print("Enter Magazine ID: ");
-                    int magId = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    int magaId=0;
+                    while (true) {
+                        try {
+                            magaId = scanner.nextInt();
+                            break; 
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. ID Must be Integer Number only.");
+                            scanner.nextLine();
+                        }
+                    } 
+                    while (true) {
+                        try {
+                            if (library.getItemById(magaId) != null) {
+                                System.out.println("A book with this ID already exists. Please enter a unique Book ID: ");
+                                magaId = scanner.nextInt();
+                            } else {
+                                break; 
+                            }
+                        } catch (ItemNotFoundException e) {
+                            break; 
+                        }
+                    }
+                    scanner.nextLine(); 
                     System.out.print("Enter Magazine Title: ");
                     String magTitle = scanner.nextLine();
                     System.out.print("Enter Magazine Issue Number: ");
-                    int issueNumber = scanner.nextInt();
-                    library.addItem(new Magazine(magId, magTitle, issueNumber));
+                    int issueNumber = 0;
+                    while (true) {
+                        try {
+                            issueNumber = scanner.nextInt();
+                            break; 
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. issue number must be integer only.");
+                            scanner.nextLine();
+                        }
+                    }   
+                    System.out.print("Enter magazine Stock: ");
+                    int stock = 0;
+                    while (true) {
+                        try {
+                            stock = scanner.nextInt();
+                            break; 
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. stock should be Integer Number only.");
+                            scanner.nextLine();
+                        }
+                    } 
+                    Magazine newMagaza=new Magazine(magaId, magTitle, issueNumber,stock);
+                    library.addItem(newMagaza);
                     System.out.println("Magazine added successfully.");
                     break;
                 case 3:
@@ -189,7 +249,16 @@ public class LibraryManagementSystem {
                 
                     while (!isUnique) {
                         System.out.print("Enter Client ID: ");
-                        clientId = scanner.nextInt();
+                        int clientid=0;
+                        while (true) {
+                            try {
+                                clientid = scanner.nextInt();
+                                break; 
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input. ID Must be Integer Number only.");
+                                scanner.nextLine();
+                            }
+                        } 
                         
                         isUnique = true;
                         for (Client client : clients) {

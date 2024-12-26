@@ -1,8 +1,8 @@
 class Magazine extends LibraryItem{
 	private int issueNumber;
 	
-	public Magazine(int id , String title , int issueNumber){
-		super(id,title);
+	public Magazine(int id , String title , int issueNumber , int stock){
+		super(id,title,stock);
 		this.issueNumber=issueNumber;
 	}
 	@Override
