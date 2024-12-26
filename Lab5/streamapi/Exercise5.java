@@ -1,13 +1,4 @@
-
-
-
-
-import java.util.Objects;
-import java.util.Optional;
-
-import static java.lang.System.out;
-import static java.util.Comparator.comparing;
-import static java.util.stream.Collectors.maxBy;
+import java.util.*;
 
 public class Exercise5 {
 
@@ -15,6 +6,18 @@ public class Exercise5 {
         CountryDao countryDao = InMemoryWorldDao.getInstance();
         CityDao cityDao = InMemoryWorldDao.getInstance();
        //write your answer here 
+    Optional<City> highestPopulousCapital = countryDao.findAllCountries().stream()
+            .map(country -> country.getCities().stream()
+                .filter(city -> city.getId() == country.getCapital()) 
+                .findFirst()) 
+            .filter(Optional::isPresent) 
+            .map(Optional::get) // 
+            .max(Comparator.comparing(City::getPopulation));
+
+    
+        highestPopulousCapital.ifPresent(city -> 
+            System.out.println("Highest populated capital city: " + city)
+        );
+    }
     }
 
-}

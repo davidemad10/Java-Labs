@@ -34,11 +34,11 @@ class Client {
     }
     public boolean returnItem(LibraryItem item) {
         if (borrowedItems.contains(item)) {
-            borrowedItems.remove(item);  // Remove item from borrowed items
-            item.returnItem();  // Increase stock in the item
+            borrowedItems.remove(item);  
+            item.returnItem(); 
             return true;
         } else {
-            return false;  // Item was not borrowed by this client
+            return false;  
         }
     }
 
