@@ -15,7 +15,12 @@ class Library<T extends LibraryItem> {
 
     public void removeItemById(int id) throws ItemNotFoundException {
         T item = getItemById(id);
-        items.remove(item);
+        if (item.isBorrowed()) {
+            System.out.println("Item is currently borrowed and cannot be removed.");
+        } else {
+            items.remove(item);
+            System.out.println("Item removed successfully.");
+        }
     }
     public List<T> getItems() {
         return items;

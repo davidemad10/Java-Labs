@@ -20,35 +20,33 @@ public class Complex<T extends Number> {
     }
 
     // Method to add two complex numbers
-    public static <T extends Number> Complex<T> add(Complex<T> c1, Complex<T> c2) {
-        T realPart = (T) Double.valueOf(c1.getReal().doubleValue() + c2.getReal().doubleValue());
-        T imaginaryPart = (T) Double.valueOf(c1.getImaginary().doubleValue() + c2.getImaginary().doubleValue());
+    public static Complex<Double> add(Complex<Double> c1, Complex<Double> c2) {
+        Double realPart = c1.getReal() + c2.getReal();
+        Double imaginaryPart = c1.getImaginary() + c2.getImaginary();
         return new Complex<>(realPart, imaginaryPart);
     }
+    
 
     // Method to subtract two complex numbers
-    public static <T extends Number> Complex<T> subtract(Complex<T> c1, Complex<T> c2) {
-        T realPart = (T) Double.valueOf(c1.getReal().doubleValue() - c2.getReal().doubleValue());
-        T imaginaryPart = (T) Double.valueOf(c1.getImaginary().doubleValue() - c2.getImaginary().doubleValue());
+    public static  Complex<Double> subtract(Complex<Double> c1, Complex<Double> c2) {
+        Double realPart = c1.getReal() - c2.getReal();
+        Double imaginaryPart = c1.getImaginary() - c2.getImaginary();
         return new Complex<>(realPart, imaginaryPart);
     }
 
     // Method to multiply two complex numbers
-    public static <T extends Number> Complex<T> multiply(Complex<T> c1, Complex<T> c2) {
-        T realPart = (T) Double.valueOf(c1.getReal().doubleValue() * c2.getReal().doubleValue()
-                - c1.getImaginary().doubleValue() * c2.getImaginary().doubleValue());
-        T imaginaryPart = (T) Double.valueOf(c1.getReal().doubleValue() * c2.getImaginary().doubleValue()
-                + c1.getImaginary().doubleValue() * c2.getReal().doubleValue());
+    public static Complex<Double> multiply(Complex<Double> c1, Complex<Double> c2) {
+        Double realPart = c1.getReal() * c2.getReal() - c1.getImaginary() * c2.getImaginary();
+        Double imaginaryPart = c1.getReal() * c2.getImaginary() + c1.getImaginary() * c2.getReal();
         return new Complex<>(realPart, imaginaryPart);
     }
+    
 
     // Method to divide two complex numbers
-    public static <T extends Number> Complex<T> divide(Complex<T> c1, Complex<T> c2) {
-        double denominator = Math.pow(c2.getReal().doubleValue(), 2) + Math.pow(c2.getImaginary().doubleValue(), 2);
-        T realPart = (T) Double.valueOf((c1.getReal().doubleValue() * c2.getReal().doubleValue()
-                + c1.getImaginary().doubleValue() * c2.getImaginary().doubleValue()) / denominator);
-        T imaginaryPart = (T) Double.valueOf((c1.getImaginary().doubleValue() * c2.getReal().doubleValue()
-                - c1.getReal().doubleValue() * c2.getImaginary().doubleValue()) / denominator);
+    public static Complex<Double> divide(Complex<Double> c1, Complex<Double> c2) {
+        double denominator = Math.pow(c2.getReal(), 2) + Math.pow(c2.getImaginary(), 2);
+        double realPart = (c1.getReal() * c2.getReal() + c1.getImaginary() * c2.getImaginary()) / denominator;
+        double imaginaryPart = (c1.getImaginary() * c2.getReal() - c1.getReal() * c2.getImaginary()) / denominator;
         return new Complex<>(realPart, imaginaryPart);
     }
 }

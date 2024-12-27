@@ -6,7 +6,7 @@ JLabel txt = new JLabel();
 
 public TextBanner(){
         this.setTitle("");
-        txt.setText("Hello, World!");
+        txt.setText("Java World!");
         txt.setBounds(0, 0, 600, 30);
         this.setLayout(null); 
         this.add(txt);

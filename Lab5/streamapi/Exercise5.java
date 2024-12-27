@@ -11,7 +11,7 @@ public class Exercise5 {
                 .filter(city -> city.getId() == country.getCapital()) 
                 .findFirst()) 
             .filter(Optional::isPresent) 
-            .map(Optional::get) // 
+            .map(Optional::get) 
             .max(Comparator.comparing(City::getPopulation));
 
     

@@ -46,21 +46,22 @@ public class LibraryManagementSystem {
         Optional<Client> optionalClient = clients.stream()
                 .filter(client -> client.getId() == clientId)
                 .findFirst();
-
+    
         if (!optionalClient.isPresent()) {
             System.out.println("Client not found.");
             return;
         }
-
+    
         System.out.print("Enter Item ID: ");
         int itemId = scanner.nextInt();
         try {
             LibraryItem item = library.getItemById(itemId);
-            if (item.borrow()) {
+            if (!item.isBorrowed()) {
+                item.borrow(); // Mark as borrowed
                 optionalClient.get().borrowItem(item);
                 System.out.println("Item borrowed successfully.");
             } else {
-                System.out.println("Item is not available.");
+                System.out.println("Item is already borrowed.");
             }
         } catch (ItemNotFoundException e) {
             System.out.println(e.getMessage());
@@ -72,17 +73,18 @@ public class LibraryManagementSystem {
         Optional<Client> optionalClient = clients.stream()
                 .filter(client -> client.getId() == clientId)
                 .findFirst();
-
+    
         if (!optionalClient.isPresent()) {
             System.out.println("Client not found.");
             return;
         }
-
+    
         System.out.print("Enter Item ID: ");
         int itemId = scanner.nextInt();
         try {
             LibraryItem item = library.getItemById(itemId);
             if (optionalClient.get().returnItem(item)) {
+                item.returnItem(); // Mark as returned
                 System.out.println("Item returned successfully.");
             } else {
                 System.out.println("Client did not borrow this item.");
@@ -244,12 +246,12 @@ public class LibraryManagementSystem {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    int clientId = -1;
+                    //int clientId = -1;
                     boolean isUnique = false;
+                    int clientid=0;
                 
                     while (!isUnique) {
                         System.out.print("Enter Client ID: ");
-                        int clientid=0;
                         while (true) {
                             try {
                                 clientid = scanner.nextInt();
@@ -262,7 +264,7 @@ public class LibraryManagementSystem {
                         
                         isUnique = true;
                         for (Client client : clients) {
-                            if (client.getId() == clientId) {
+                            if (client.getId() == clientid) {
                                 System.out.println("A client with this ID already exists. Please enter a unique Client ID.");
                                 isUnique = false;
                                 break;
@@ -274,7 +276,7 @@ public class LibraryManagementSystem {
                     String clientName = scanner.nextLine();
                     System.out.print("Enter Client Email: ");
                     String clientEmail = scanner.nextLine();
-                    clients.add(new Client(clientId, clientName, clientEmail));
+                    clients.add(new Client(clientid, clientName, clientEmail));
                     System.out.println("Client added successfully.");
                     break;
 		        case 2:
@@ -294,8 +296,20 @@ public class LibraryManagementSystem {
                 case 3:
                     System.out.print("Enter Client ID: ");
                     int removeClientId = scanner.nextInt();
-                    if (clients.removeIf(client -> client.getId() == removeClientId)) {
-                        System.out.println("Client removed successfully.");
+                    Optional<Client> clientToRemove = clients.stream()
+                            .filter(client -> client.getId() == removeClientId)
+                            .findFirst();
+                
+                    if (clientToRemove.isPresent()) {
+                        Client client = clientToRemove.get();
+                        if (client.getBorrowedItems().isEmpty()) {
+                    
+                            clients.remove(client);
+                            System.out.println("Client removed successfully.");
+                        } else {
+
+                            System.out.println("Client cannot be removed because they have borrowed items.");
+                        }
                     } else {
                         System.out.println("Client with ID " + removeClientId + " not found.");
                     }

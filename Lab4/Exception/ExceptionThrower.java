@@ -1,5 +1,5 @@
 public class ExceptionThrower {
-    public void causeDivisionError() throws MyException {
+    public void causeDivisionError()  {
         throw new MyException("Division by zero error!");
     }
 

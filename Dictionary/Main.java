@@ -15,7 +15,7 @@ public class Main {
         System.out.println("5. Exit");
 
         while (!exit) {
-            System.out.print("\nChoose an operation (1-5): ");
+            System.out.print("Choose an operation (1-5): ");
             int choice = scanner.nextInt();
             scanner.nextLine(); 
 
